@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport name="informe_partidos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+    
+    <!-- PARÁMETROS -->
+    <parameter name="TITULO" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["Informe de Partidos y Resultados"]]></defaultValueExpression>
+    </parameter>
+    
+    <parameter name="ELIMINATORIA" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+    </parameter>
+    
+    <!-- CONSULTA SQL -->
+    <queryString>
+        <![CDATA[
+SELECT 
+    p.id AS partido_id,
+    p.fecha AS partido_fecha,
+    p.hora AS partido_hora,
+    p.eliminatoria AS partido_eliminatoria,
+    p.goles_local AS partido_goles_local,
+    p.goles_visitante AS partido_goles_visitante,
+    p.jugado AS partido_jugado,
+    p.equipo_local_id AS equipo_local_id,
+    p.equipo_visitante_id AS equipo_visitante_id,
+    el.nombre AS equipo_local,
+    el.curso AS equipo_local_curso,
+    ev.nombre AS equipo_visitante,
+    ev.curso AS equipo_visitante_curso,
+    a.nombre AS arbitro_nombre
+FROM partidos p
+INNER JOIN equipos el ON p.equipo_local_id = el.id
+INNER JOIN equipos ev ON p.equipo_visitante_id = ev.id
+INNER JOIN participantes a ON p.arbitro_id = a.id
+WHERE ($P{ELIMINATORIA} IS NULL OR p.eliminatoria = $P{ELIMINATORIA})
+ORDER BY 
+    CASE p.eliminatoria
+        WHEN 'Octavos' THEN 1
+        WHEN 'Cuartos' THEN 2
+        WHEN 'Semifinal' THEN 3
+        WHEN 'Final' THEN 4
+    END,
+    p.fecha,
+    p.hora
+        ]]>
+    </queryString>
+    
+    <!-- CAMPOS -->
+    <field name="partido_id" class="java.lang.Integer"/>
+    <field name="partido_fecha" class="java.lang.String"/>
+    <field name="partido_hora" class="java.lang.String"/>
+    <field name="partido_eliminatoria" class="java.lang.String"/>
+    <field name="partido_goles_local" class="java.lang.Integer"/>
+    <field name="partido_goles_visitante" class="java.lang.Integer"/>
+    <field name="partido_jugado" class="java.lang.Integer"/>
+    <field name="equipo_local_id" class="java.lang.Integer"/>
+    <field name="equipo_visitante_id" class="java.lang.Integer"/>
+    <field name="equipo_local" class="java.lang.String"/>
+    <field name="equipo_local_curso" class="java.lang.String"/>
+    <field name="equipo_visitante" class="java.lang.String"/>
+    <field name="equipo_visitante_curso" class="java.lang.String"/>
+    <field name="arbitro_nombre" class="java.lang.String"/>
+    
+    <!-- VARIABLES POR ELIMINATORIA -->
+    <variable name="total_partidos_elim" class="java.lang.Integer" resetType="Group" resetGroup="grupo_eliminatoria" calculation="Count">
+        <variableExpression><![CDATA[$F{partido_id}]]></variableExpression>
+    </variable>
+    
+    <variable name="total_goles_elim" class="java.lang.Integer" resetType="Group" resetGroup="grupo_eliminatoria" calculation="Sum">
+        <variableExpression><![CDATA[$F{partido_jugado} == 1 ? ($F{partido_goles_local} + $F{partido_goles_visitante}) : 0]]></variableExpression>
+    </variable>
+    
+    <variable name="partidos_jugados_elim" class="java.lang.Integer" resetType="Group" resetGroup="grupo_eliminatoria" calculation="Sum">
+        <variableExpression><![CDATA[$F{partido_jugado}]]></variableExpression>
+    </variable>
+    
+    <!-- GRUPO POR ELIMINATORIA -->
+    <group name="grupo_eliminatoria">
+        <groupExpression><![CDATA[$F{partido_eliminatoria}]]></groupExpression>
+        
+        <!-- CABECERA DEL GRUPO -->
+        <groupHeader>
+            <band height="50">
+                <!-- Rectángulo de fondo -->
+                <rectangle>
+                    <reportElement x="0" y="10" width="535" height="35" forecolor="#FFFFFF" backcolor="#E74C3C"/>
+                    <graphicElement><pen lineWidth="0"/></graphicElement>
+                </rectangle>
+                
+                <!-- Nombre de la eliminatoria -->
+                <textField>
+                    <reportElement x="10" y="15" width="515" height="25" forecolor="#FFFFFF"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="Arial" size="14" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["⚽ " + $F{partido_eliminatoria}.toUpperCase()]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupHeader>
+        
+        <!-- PIE DEL GRUPO (ESTADÍSTICAS) -->
+        <groupFooter>
+            <band height="45">
+                <!-- Línea separadora -->
+                <line>
+                    <reportElement x="0" y="5" width="535" height="1" forecolor="#BDC3C7"/>
+                    <graphicElement><pen lineWidth="1"/></graphicElement>
+                </line>
+                
+                <!-- Estadísticas de la eliminatoria -->
+                <textField>
+                    <reportElement x="10" y="15" width="515" height="20" forecolor="#666666"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="Arial" size="9" isItalic="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["📊 " + $F{partido_eliminatoria} + " - Total: " + $V{total_partidos_elim} + " partidos  |  Jugados: " + $V{partidos_jugados_elim} + "  |  Goles totales: " + $V{total_goles_elim}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupFooter>
+    </group>
+    
+    <!-- TÍTULO DEL INFORME -->
+    <title>
+        <band height="80">
+            <!-- Rectángulo header -->
+            <rectangle>
+                <reportElement x="0" y="0" width="535" height="60" forecolor="#FFFFFF" backcolor="#2C3E50"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            
+            <!-- Logo/Texto del torneo -->
+            <staticText>
+                <reportElement x="10" y="5" width="400" height="18" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[⚽ SISTEMA DE GESTIÓN DE TORNEO DE FÚTBOL]]></text>
+            </staticText>
+            
+            <staticText>
+                <reportElement x="10" y="23" width="300" height="12" forecolor="#ECF0F1"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <text><![CDATA[IES Brianda de Mendoza - 2º DAM]]></text>
+            </staticText>
+            
+            <!-- Título del informe -->
+            <textField>
+                <reportElement x="10" y="38" width="400" height="18" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
+            </textField>
+            
+            <!-- Fecha y hora -->
+            <textField>
+                <reportElement x="420" y="40" width="115" height="16" forecolor="#ECF0F1"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+            </textField>
+            
+            <!-- Línea separadora -->
+            <line>
+                <reportElement x="0" y="75" width="535" height="2" forecolor="#E74C3C"/>
+                <graphicElement><pen lineWidth="2"/></graphicElement>
+            </line>
+        </band>
+    </title>
+    
+    <!-- DETALLE (CADA PARTIDO) -->
+    <detail>
+        <band height="95">
+            <!-- Rectángulo del partido (ROJO si pendiente, BLANCO si jugado) -->
+            <rectangle>
+                <reportElement x="0" y="5" width="535" height="85">
+                    <printWhenExpression><![CDATA[$F{partido_jugado} == 0]]></printWhenExpression>
+                </reportElement>
+                <graphicElement>
+                    <pen lineWidth="2" lineColor="#E74C3C"/>
+                </graphicElement>
+            </rectangle>
+            
+            <rectangle>
+                <reportElement x="0" y="5" width="535" height="85">
+                    <printWhenExpression><![CDATA[$F{partido_jugado} == 1]]></printWhenExpression>
+                </reportElement>
+                <graphicElement>
+                    <pen lineWidth="1" lineColor="#BDC3C7"/>
+                </graphicElement>
+            </rectangle>
+            
+            <!-- Fecha y hora -->
+            <textField>
+                <reportElement x="10" y="10" width="150" height="15" forecolor="#666666"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["📅 " + $F{partido_fecha} + " - " + $F{partido_hora}]]></textFieldExpression>
+            </textField>
+            
+            <!-- Estado del partido -->
+            <textField>
+                <reportElement x="420" y="10" width="110" height="15">
+                    <printWhenExpression><![CDATA[$F{partido_jugado} == 0]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["🔴 PENDIENTE"]]></textFieldExpression>
+            </textField>
+            
+            <textField>
+                <reportElement x="420" y="10" width="110" height="15" forecolor="#27AE60">
+                    <printWhenExpression><![CDATA[$F{partido_jugado} == 1]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["✅ JUGADO"]]></textFieldExpression>
+            </textField>
+            
+            <!-- Equipo Local -->
+            <textField>
+                <reportElement x="10" y="30" width="220" height="16"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="11" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{equipo_local}]]></textFieldExpression>
+            </textField>
+            
+            <textField>
+                <reportElement x="10" y="46" width="220" height="12" forecolor="#999999"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{equipo_local_curso}]]></textFieldExpression>
+            </textField>
+            
+            <!-- VS -->
+            <staticText>
+                <reportElement x="235" y="30" width="65" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[VS]]></text>
+            </staticText>
+            
+            <!-- Equipo Visitante -->
+            <textField>
+                <reportElement x="305" y="30" width="220" height="16"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="11" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{equipo_visitante}]]></textFieldExpression>
+            </textField>
+            
+            <textField>
+                <reportElement x="305" y="46" width="220" height="12" forecolor="#999999"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{equipo_visitante_curso}]]></textFieldExpression>
+            </textField>
+            
+            <!-- Árbitro -->
+            <textField>
+                <reportElement x="10" y="65" width="300" height="15" forecolor="#666666"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["👨‍⚖️ Árbitro: " + $F{arbitro_nombre}]]></textFieldExpression>
+            </textField>
+            
+            <!-- Resultado (solo si jugado) -->
+            <textField>
+                <reportElement x="320" y="65" width="205" height="20" forecolor="#27AE60">
+                    <printWhenExpression><![CDATA[$F{partido_jugado} == 1]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["⚽ " + $F{partido_goles_local} + " - " + $F{partido_goles_visitante}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    
+    <!-- PIE DE PÁGINA -->
+    <pageFooter>
+        <band height="30">
+            <!-- Línea superior -->
+            <line>
+                <reportElement x="0" y="5" width="535" height="1" forecolor="#BDC3C7"/>
+                <graphicElement><pen lineWidth="1"/></graphicElement>
+            </line>
+            
+            <!-- Número de página -->
+            <textField>
+                <reportElement x="0" y="10" width="200" height="15"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            
+            <textField evaluationTime="Report">
+                <reportElement x="200" y="10" width="50" height="15"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            
+            <!-- Info adicional -->
+            <staticText>
+                <reportElement x="335" y="10" width="200" height="15"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="7" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[Generado por Sistema de Gestión de Torneo]]></text>
+            </staticText>
+        </band>
+    </pageFooter>
+    
+</jasperReport>

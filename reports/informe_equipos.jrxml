@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport name="informe_equipos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+    
+    <!-- PARÁMETROS -->
+    <parameter name="TITULO" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="EQUIPO_ID" class="java.lang.String" isForPrompting="false"/>
+    
+    <!-- CONSULTA SQL -->
+    <queryString>
+        <![CDATA[
+SELECT 
+    e.id AS equipo_id,
+    e.nombre AS equipo_nombre,
+    e.curso AS equipo_curso,
+    e.color_camiseta AS equipo_color,
+    p.id AS jugador_id,
+    p.nombre AS jugador_nombre,
+    p.posicion AS jugador_posicion,
+    p.goles AS jugador_goles,
+    p.t_amarillas AS jugador_tarjetas_amarillas,
+    p.t_rojas AS jugador_tarjetas_rojas
+FROM equipos e
+LEFT JOIN participantes p ON e.id = p.equipo_id AND p.es_jugador = 1
+WHERE ($P{EQUIPO_ID} IS NULL OR e.id = CAST($P{EQUIPO_ID} AS INTEGER))
+ORDER BY e.nombre, p.nombre
+        ]]>
+    </queryString>
+    
+    <!-- CAMPOS -->
+    <field name="equipo_id" class="java.lang.Integer"/>
+    <field name="equipo_nombre" class="java.lang.String"/>
+    <field name="equipo_curso" class="java.lang.String"/>
+    <field name="equipo_color" class="java.lang.String"/>
+    <field name="jugador_id" class="java.lang.Integer"/>
+    <field name="jugador_nombre" class="java.lang.String"/>
+    <field name="jugador_posicion" class="java.lang.String"/>
+    <field name="jugador_goles" class="java.lang.Integer"/>
+    <field name="jugador_tarjetas_amarillas" class="java.lang.Integer"/>
+    <field name="jugador_tarjetas_rojas" class="java.lang.Integer"/>
+    
+    <!-- VARIABLES POR EQUIPO -->
+    <variable name="total_goles" class="java.lang.Integer" resetType="Group" resetGroup="grupo_equipo" calculation="Sum">
+        <variableExpression><![CDATA[$F{jugador_goles} != null ? $F{jugador_goles} : 0]]></variableExpression>
+    </variable>
+    
+    <variable name="total_amarillas" class="java.lang.Integer" resetType="Group" resetGroup="grupo_equipo" calculation="Sum">
+        <variableExpression><![CDATA[$F{jugador_tarjetas_amarillas} != null ? $F{jugador_tarjetas_amarillas} : 0]]></variableExpression>
+    </variable>
+    
+    <variable name="total_rojas" class="java.lang.Integer" resetType="Group" resetGroup="grupo_equipo" calculation="Sum">
+        <variableExpression><![CDATA[$F{jugador_tarjetas_rojas} != null ? $F{jugador_tarjetas_rojas} : 0]]></variableExpression>
+    </variable>
+    
+    <variable name="count_jugadores" class="java.lang.Integer" resetType="Group" resetGroup="grupo_equipo" calculation="Count">
+        <variableExpression><![CDATA[$F{jugador_id}]]></variableExpression>
+    </variable>
+    
+    <variable name="promedio_goles" class="java.lang.Double" resetType="Group" resetGroup="grupo_equipo" calculation="Nothing">
+        <variableExpression><![CDATA[$V{count_jugadores} > 0 ? (double)$V{total_goles} / $V{count_jugadores} : 0.0]]></variableExpression>
+    </variable>
+    
+    <!-- MÁXIMO GOLES POR EQUIPO -->
+    <variable name="max_goles_equipo" class="java.lang.Integer" resetType="Group" resetGroup="grupo_equipo" calculation="Highest">
+        <variableExpression><![CDATA[$F{jugador_goles} != null ? $F{jugador_goles} : 0]]></variableExpression>
+    </variable>
+    
+    <!-- MÁXIMAS TARJETAS POR EQUIPO -->
+    <variable name="max_tarjetas_equipo" class="java.lang.Integer" resetType="Group" resetGroup="grupo_equipo" calculation="Highest">
+        <variableExpression><![CDATA[($F{jugador_tarjetas_amarillas} != null ? $F{jugador_tarjetas_amarillas} : 0) + ($F{jugador_tarjetas_rojas} != null ? $F{jugador_tarjetas_rojas} : 0)]]></variableExpression>
+    </variable>
+    
+    <!-- GRUPO POR EQUIPO -->
+    <group name="grupo_equipo">
+        <groupExpression><![CDATA[$F{equipo_id}]]></groupExpression>
+        
+        <!-- CABECERA DEL GRUPO (EQUIPO) -->
+        <groupHeader>
+            <band height="90">
+                <!-- Rectángulo de fondo -->
+                <rectangle>
+                    <reportElement x="0" y="10" width="535" height="40" forecolor="#FFFFFF" backcolor="#3498DB"/>
+                    <graphicElement><pen lineWidth="0"/></graphicElement>
+                </rectangle>
+                
+                <!-- Nombre del equipo -->
+                <textField>
+                    <reportElement x="10" y="15" width="400" height="25" forecolor="#FFFFFF"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="Arial" size="16" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{equipo_nombre}]]></textFieldExpression>
+                </textField>
+                
+                <!-- Curso y color -->
+                <textField>
+                    <reportElement x="420" y="15" width="110" height="12" forecolor="#FFFFFF"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle">
+                        <font fontName="Arial" size="9"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["Curso: " + $F{equipo_curso}]]></textFieldExpression>
+                </textField>
+                
+                <textField>
+                    <reportElement x="420" y="30" width="110" height="12" forecolor="#FFFFFF"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle">
+                        <font fontName="Arial" size="9"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["Color: " + ($F{equipo_color} != null ? $F{equipo_color} : "N/A")]]></textFieldExpression>
+                </textField>
+                
+                <!-- Cabecera de la tabla de jugadores -->
+                <staticText>
+                    <reportElement x="0" y="60" width="200" height="20" backcolor="#ECF0F1"/>
+                    <box><pen lineWidth="0.5" lineColor="#BDC3C7"/></box>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="Arial" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Jugador]]></text>
+                </staticText>
+                
+                <staticText>
+                    <reportElement x="200" y="60" width="115" height="20" backcolor="#ECF0F1"/>
+                    <box><pen lineWidth="0.5" lineColor="#BDC3C7"/></box>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="Arial" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Posición]]></text>
+                </staticText>
+                
+                <staticText>
+                    <reportElement x="315" y="60" width="70" height="20" backcolor="#ECF0F1"/>
+                    <box><pen lineWidth="0.5" lineColor="#BDC3C7"/></box>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="Arial" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Goles]]></text>
+                </staticText>
+                
+                <staticText>
+                    <reportElement x="385" y="60" width="75" height="20" backcolor="#ECF0F1"/>
+                    <box><pen lineWidth="0.5" lineColor="#BDC3C7"/></box>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="Arial" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[T. Amarillas]]></text>
+                </staticText>
+                
+                <staticText>
+                    <reportElement x="460" y="60" width="75" height="20" backcolor="#ECF0F1"/>
+                    <box><pen lineWidth="0.5" lineColor="#BDC3C7"/></box>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="Arial" size="9" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[T. Rojas]]></text>
+                </staticText>
+            </band>
+        </groupHeader>
+        
+        <!-- PIE DEL GRUPO (ESTADÍSTICAS) -->
+        <groupFooter>
+            <band height="70">
+                <!-- Línea separadora -->
+                <line>
+                    <reportElement x="0" y="5" width="535" height="1" forecolor="#BDC3C7"/>
+                    <graphicElement><pen lineWidth="1"/></graphicElement>
+                </line>
+                
+                <!-- Rectángulo de estadísticas -->
+                <rectangle>
+                    <reportElement x="0" y="15" width="535" height="45" forecolor="#FFFFFF" backcolor="#ECF0F1"/>
+                    <graphicElement><pen lineWidth="0"/></graphicElement>
+                </rectangle>
+                
+                <!-- Título -->
+                <staticText>
+                    <reportElement x="10" y="20" width="150" height="15"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="Arial" size="10" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[📊 Estadísticas del equipo:]]></text>
+                </staticText>
+                
+                <!-- Estadísticas -->
+                <textField>
+                    <reportElement x="10" y="38" width="250" height="15"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="Arial" size="9"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["Total jugadores: " + $V{count_jugadores} + "  |  Total goles: " + $V{total_goles}]]></textFieldExpression>
+                </textField>
+                
+                <textField>
+                    <reportElement x="270" y="38" width="260" height="15"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle">
+                        <font fontName="Arial" size="9"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["Amarillas: " + $V{total_amarillas} + "  |  Rojas: " + $V{total_rojas} + "  |  Promedio: " + new java.text.DecimalFormat("0.0").format($V{promedio_goles}) + " goles/jugador"]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupFooter>
+    </group>
+    
+    <!-- TÍTULO DEL INFORME -->
+    <title>
+        <band height="80">
+            <!-- Rectángulo header -->
+            <rectangle>
+                <reportElement x="0" y="0" width="535" height="60" forecolor="#FFFFFF" backcolor="#2C3E50"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+            
+            <!-- Logo/Texto del torneo -->
+            <staticText>
+                <reportElement x="10" y="5" width="400" height="18" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[⚽ SISTEMA DE GESTIÓN DE TORNEO DE FÚTBOL]]></text>
+            </staticText>
+            
+            <staticText>
+                <reportElement x="10" y="23" width="300" height="12" forecolor="#ECF0F1"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <text><![CDATA[IES Brianda de Mendoza - 2º DAM]]></text>
+            </staticText>
+            
+            <!-- Título del informe -->
+            <textField>
+                <reportElement x="10" y="38" width="400" height="18" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
+            </textField>
+            
+            <!-- Fecha y hora -->
+            <textField>
+                <reportElement x="420" y="40" width="115" height="16" forecolor="#ECF0F1"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+            </textField>
+            
+            <!-- Línea separadora -->
+            <line>
+                <reportElement x="0" y="75" width="535" height="2" forecolor="#3498DB"/>
+                <graphicElement><pen lineWidth="2"/></graphicElement>
+            </line>
+        </band>
+    </title>
+    
+    <!-- DETALLE (JUGADORES) -->
+    <detail>
+        <band height="22">
+            <!-- Nombre del jugador -->
+            <textField>
+                <reportElement x="0" y="0" width="200" height="20">
+                    <!-- DESTACAR SI TIENE MÁS GOLES -->
+                    <printWhenExpression><![CDATA[$F{jugador_id} != null]]></printWhenExpression>
+                </reportElement>
+                <box><pen lineWidth="0.5" lineColor="#ECF0F1"/></box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Arial" size="9" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{jugador_nombre} != null ? $F{jugador_nombre} : ""]]></textFieldExpression>
+            </textField>
+            
+            <!-- Posición -->
+            <textField>
+                <reportElement x="200" y="0" width="115" height="20">
+                    <printWhenExpression><![CDATA[$F{jugador_id} != null]]></printWhenExpression>
+                </reportElement>
+                <box><pen lineWidth="0.5" lineColor="#ECF0F1"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{jugador_posicion} != null ? $F{jugador_posicion} : ""]]></textFieldExpression>
+            </textField>
+            
+            <!-- Goles (DESTACADO SI ES MÁXIMO) -->
+            <textField>
+                <reportElement x="315" y="0" width="70" height="20" backcolor="#FFFFFF">
+                    <printWhenExpression><![CDATA[$F{jugador_id} != null]]></printWhenExpression>
+                </reportElement>
+                <box><pen lineWidth="0.5" lineColor="#ECF0F1"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial" size="9" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{jugador_goles} != null ? ($F{jugador_goles}.equals($V{max_goles_equipo}) && $V{max_goles_equipo} > 0 ? "⭐ " + $F{jugador_goles} : $F{jugador_goles}.toString()) : "0"]]></textFieldExpression>
+            </textField>
+            
+            <!-- Tarjetas amarillas -->
+            <textField>
+                <reportElement x="385" y="0" width="75" height="20">
+                    <printWhenExpression><![CDATA[$F{jugador_id} != null]]></printWhenExpression>
+                </reportElement>
+                <box><pen lineWidth="0.5" lineColor="#ECF0F1"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{jugador_tarjetas_amarillas} != null ? $F{jugador_tarjetas_amarillas}.toString() : "0"]]></textFieldExpression>
+            </textField>
+            
+            <!-- Tarjetas rojas -->
+            <textField>
+                <reportElement x="460" y="0" width="75" height="20">
+                    <printWhenExpression><![CDATA[$F{jugador_id} != null]]></printWhenExpression>
+                </reportElement>
+                <box><pen lineWidth="0.5" lineColor="#ECF0F1"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial" size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{jugador_tarjetas_rojas} != null ? $F{jugador_tarjetas_rojas}.toString() : "0"]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    
+    <!-- PIE DE PÁGINA -->
+    <pageFooter>
+        <band height="30">
+            <!-- Línea superior -->
+            <line>
+                <reportElement x="0" y="5" width="535" height="1" forecolor="#BDC3C7"/>
+                <graphicElement><pen lineWidth="1"/></graphicElement>
+            </line>
+            
+            <!-- Número de página -->
+            <textField>
+                <reportElement x="0" y="10" width="200" height="15"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            
+            <textField evaluationTime="Report">
+                <reportElement x="200" y="10" width="50" height="15"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            
+            <!-- Info adicional -->
+            <staticText>
+                <reportElement x="335" y="10" width="200" height="15"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font fontName="Arial" size="7" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[Generado por Sistema de Gestión de Torneo]]></text>
+            </staticText>
+        </band>
+    </pageFooter>
+    
+</jasperReport>
