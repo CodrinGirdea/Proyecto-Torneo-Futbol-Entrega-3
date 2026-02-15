@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Creditos</class>
+ <widget class="QWidget" name="Creditos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>282</width>
+    <height>340</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_titulo">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Créditos</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_subtitulo">
+     <property name="text">
+      <string>Sistema de Gestión de Torneo de Fútbol</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_version">
+     <property name="text">
+      <string>Version 1.0</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_autor">
+     <property name="text">
+      <string>Desarrollado por: 
+ Codrin Girdea</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_fecha">
+     <property name="text">
+      <string>Fecha: Enero 2026</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_instituto">
+     <property name="text">
+      <string>Proyecto de Diseño de Interfaces
+ 2º DAM - IES Brianda de Mendoza</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btn_cerrar">
+     <property name="text">
+      <string>Cerrar</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

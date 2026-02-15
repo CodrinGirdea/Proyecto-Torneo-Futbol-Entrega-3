@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>462</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_titulo">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Ayuda</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Instrucciones de uso</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="plainTextEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string> 1. Gestión de Equipos:                       
+     - Crea los equipos del torneo             
+     - Asigna nombre, curso y colores </string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="plainTextEdit_2">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string>2. Gestión de Participantes:                 
+     - Registra jugadores y árbitros           
+     - Asigna jugadores a sus equipos</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="plainTextEdit_3">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string>3. Gestión de Partidos:                      
+     - Programa los partidos del torneo        
+     - Asigna equipos, árbitros y fechas</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="plainTextEdit_4">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string>4. Actualización de Resultados:              
+      - Registra goles y tarjetas               
+      - Marca partidos como jugados</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="plainTextEdit_5">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string>5. Clasificación/Eliminatorias:              
+      - Visualiza el cuadro del torneo</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btn_cerrar">
+     <property name="text">
+      <string>Cerrar</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Gestion_de_partidos</class>
+ <widget class="QWidget" name="Gestion_de_partidos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>920</width>
+    <height>660</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>920</width>
+    <height>660</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="3" column="0" colspan="6">
+    <widget class="QTableWidget" name="table_partidos">
+     <column>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Equipo Local</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Equipo Visitante</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Árbitro</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Fecha</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Hora</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Eliminatoria</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Resultado</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Estado</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="6">
+    <widget class="QGroupBox" name="gb_resultado">
+     <property name="title">
+      <string>Resultado</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="3">
+       <widget class="QSpinBox" name="spin_goles_visitante"/>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_jugado">
+        <property name="text">
+         <string>           Jugado</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="spin_goles_local"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_goles_visitante">
+        <property name="text">
+         <string>Goles visitante</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QCheckBox" name="check_jugado">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_goles_local">
+        <property name="text">
+         <string>Goles local</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="6">
+    <widget class="QGroupBox" name="gb_programar_partido">
+     <property name="title">
+      <string>Programar partido</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="5" colspan="3">
+       <widget class="QComboBox" name="combo_equipo_visitante"/>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_hora">
+        <property name="text">
+         <string>Hora</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QLabel" name="label_arbitro">
+        <property name="text">
+         <string>Árbitro asignado</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4" colspan="3">
+       <widget class="QTimeEdit" name="input_hora"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_equipo_local">
+        <property name="text">
+         <string>Equipo local</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2">
+       <widget class="QDateEdit" name="input_fecha"/>
+      </item>
+      <item row="0" column="1" colspan="3">
+       <widget class="QComboBox" name="combo_equipo_local">
+        <property name="minimumSize">
+         <size>
+          <width>262</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_eliminatoria">
+        <property name="text">
+         <string>Eliminatoria</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_equipo_visitante">
+        <property name="text">
+         <string>Equipo visitante</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_fecha">
+        <property name="text">
+         <string>Fecha</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6" colspan="2">
+       <widget class="QComboBox" name="combo_arbitro"/>
+      </item>
+      <item row="2" column="1" colspan="4">
+       <widget class="QComboBox" name="combo_eliminatoria">
+        <item>
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Octavos</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Cuartos</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Semifinal</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Final</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="btn_crear">
+       <property name="text">
+        <string>Crear partido</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_actualizar">
+       <property name="text">
+        <string>Actualizar partido</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_eliminar">
+       <property name="text">
+        <string>Eliminar partido</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_volver">
+       <property name="text">
+        <string>Volver</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_limpiar">
+       <property name="text">
+        <string>Limpiar campos</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_subtitulo">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tabla de Partidos</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_titulo">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Gestión de Partidos</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

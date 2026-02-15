@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Gestion_de_participantes</class>
+ <widget class="QWidget" name="Gestion_de_participantes">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>580</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>580</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_subtitulo">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tabla de participantes</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QTableWidget" name="table_participantes">
+     <column>
+      <property name="text">
+       <string> ID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Nombre</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Fecha Nac</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Curso</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Tipo </string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Posición</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Equipo</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Formulario de datos</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_nombre">
+        <property name="text">
+         <string>Nombre</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QLineEdit" name="input_nombre"/>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="label_tipo">
+        <property name="text">
+         <string>Tipo</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4" colspan="2">
+       <widget class="QCheckBox" name="check_es_jugador">
+        <property name="text">
+         <string>Jugador</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QCheckBox" name="check_es_arbitro">
+        <property name="text">
+         <string>Arbitro</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_fecha_nac">
+        <property name="text">
+         <string>Fecha Nac</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2">
+       <widget class="QDateEdit" name="input_fecha_nac"/>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_curso">
+        <property name="text">
+         <string>Curso</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5" colspan="2">
+       <widget class="QLineEdit" name="input_curso"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_posicion">
+        <property name="text">
+         <string>Posicion</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QComboBox" name="combo_posicion">
+        <item>
+         <property name="text">
+          <string/>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Portero</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Defensa</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Centrocampista</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Delantero</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="label_equipo">
+        <property name="text">
+         <string>Equipo</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5" colspan="2">
+       <widget class="QComboBox" name="combo_equipo"/>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="label_t_amarillas">
+        <property name="text">
+         <string>Tarjetas amarillas</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QSpinBox" name="spin_t_amarillas"/>
+      </item>
+      <item row="3" column="3" colspan="2">
+       <widget class="QLabel" name="label_t_rojas">
+        <property name="text">
+         <string>Tarjetas rojas</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="5">
+       <widget class="QSpinBox" name="spin_t_rojas"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_goles">
+        <property name="text">
+         <string>Goles</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QSpinBox" name="spin_goles"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="btn_actualizar">
+       <property name="text">
+        <string>Actualizar Participante</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_crear">
+       <property name="text">
+        <string>Crear Participante</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_eliminar">
+       <property name="text">
+        <string>Eliminar Participante</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_limpiar">
+       <property name="text">
+        <string>Limpiar Campos</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_volver">
+       <property name="text">
+        <string>Volver</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_titulo">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Gestión de Participantes</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

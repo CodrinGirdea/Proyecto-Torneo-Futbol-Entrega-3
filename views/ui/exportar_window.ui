@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ExportarWindow</class>
+ <widget class="QWidget" name="ExportarWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>650</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>650</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>650</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Exportar Datos a CSV</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>25</number>
+   </property>
+   <property name="topMargin">
+    <number>25</number>
+   </property>
+   <property name="rightMargin">
+    <number>25</number>
+   </property>
+   <property name="bottomMargin">
+    <number>25</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="label_titulo">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Exportar Datos del Torneo a CSV</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_estadisticas">
+     <property name="title">
+      <string>Estadísticas y Clasificación</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="btn_clasificacion">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Exporta la tabla de clasificación con estadísticas de cada equipo</string>
+        </property>
+        <property name="text">
+         <string>Exportar Clasificación</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_goleadores">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Exporta la tabla de goleadores del torneo</string>
+        </property>
+        <property name="text">
+         <string>Exportar Goleadores</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_tarjetas">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Exporta estadísticas de tarjetas por jugador</string>
+        </property>
+        <property name="text">
+         <string> Exportar Tarjetas</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_partidos">
+     <property name="title">
+      <string>Partidos y Calendario</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="btn_partidos_jugados">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Exporta solo los partidos que ya se han jugado</string>
+        </property>
+        <property name="text">
+         <string>Exportar Partidos Jugados</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_calendario">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Exporta todos los partidos (jugados y pendientes)</string>
+        </property>
+        <property name="text">
+         <string>Exportar Calendario Completo</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_general">
+     <property name="title">
+      <string>Datos Generales</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="btn_jugadores">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Exporta la lista completa de jugadores con sus estadísticas</string>
+        </property>
+        <property name="text">
+         <string>Exportar Jugadores</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="btn_volver">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>45</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Volver al menú principal</string>
+     </property>
+     <property name="text">
+      <string>Volver al Menú Principal</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

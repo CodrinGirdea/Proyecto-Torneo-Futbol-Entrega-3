@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>598</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>600</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_titulo">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Gestión de Equipos</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QTableWidget" name="table_equipos">
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+     </property>
+     <column>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Nombre</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Curso</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Color Camiseta</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_nombre">
+       <property name="text">
+        <string>Nombre</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_curso">
+       <property name="text">
+        <string>Curso</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_color_camiseta">
+       <property name="text">
+        <string>Color Camiseta</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_escudo">
+       <property name="text">
+        <string>Escudo</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="input_escudo"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="btn_seleccionar_escudo">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Seleccionar Imagen</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="input_color"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="input_curso"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="input_nombre"/>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="btn_crear">
+       <property name="text">
+        <string>Crear Equipo</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_limpiar">
+       <property name="text">
+        <string>Limpiar Campos</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_actualizar">
+       <property name="text">
+        <string>Actualizar Equipo</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_volver">
+       <property name="text">
+        <string>Volver</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_eliminar">
+       <property name="text">
+        <string>Eliminar Equipo</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

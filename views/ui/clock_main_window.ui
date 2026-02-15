@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_idioma">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Idioma / Language:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_eventos">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>145</y>
+      <width>781</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>22</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Esperando eventos...</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="grupo_reloj">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>240</y>
+      <width>781</width>
+      <height>156</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Controles de Reloj</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0" colspan="2">
+      <widget class="QCheckBox" name="check_24h">
+       <property name="text">
+        <string>Formato 24 Horas</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_hora">
+       <property name="text">
+        <string>Hora Alarma:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSpinBox" name="spin_hora">
+       <property name="maximum">
+        <number>59</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_minuto">
+       <property name="text">
+        <string>Minuto:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QSpinBox" name="spin_minuto">
+       <property name="maximum">
+        <number>59</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QLabel" name="label_mensaje">
+       <property name="text">
+        <string>Mensaje:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QLineEdit" name="input_mensaje">
+       <property name="placeholderText">
+        <string>¡Alarma activada!</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="6">
+      <widget class="QPushButton" name="btn_configurar_alarma">
+       <property name="text">
+        <string>Configurar Alarma</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="6">
+      <widget class="QPushButton" name="btn_modo_reloj">
+       <property name="text">
+        <string>Cambiar a Modo Reloj</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="grupo_timer">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>390</y>
+      <width>781</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Controles de Temporizador</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_duracion">
+       <property name="text">
+        <string>Duración (segundos):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="spin_duracion">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>86400</number>
+       </property>
+       <property name="value">
+        <number>60</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QCheckBox" name="check_regresivo">
+       <property name="text">
+        <string>Regresivo</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="btn_modo_timer">
+       <property name="minimumSize">
+        <size>
+         <width>121</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Cambiar a Modo Timer</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="btn_iniciar">
+       <property name="text">
+        <string>Iniciar</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="btn_pausar">
+       <property name="text">
+        <string>Pausar</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QPushButton" name="btn_reiniciar">
+       <property name="text">
+        <string>Reiniciar</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QComboBox" name="combo_idioma">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>10</y>
+      <width>86</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Español</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>English</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>33</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
